@@ -17,7 +17,7 @@ const playGame = () => { // инициализация игры
   console.log('Welcome to the Brain Games!');
   const name = readlineSync.question('May I have your name? '); // запись имени игрока
   console.log(`Hello, ${name}!\nAnswer "yes" if the number is even, otherwise answer "no".`);
-  for (let i = 0; i < 3; i++) { // инициализация счетчика раундов
+  for (let i = 0; i < 3; i + 1) { // инициализация счетчика раундов
     const isCorrect = playRound();
     if (!isCorrect) { // проверка результата раунда
       console.log(`Let's try again, ${name}`);
