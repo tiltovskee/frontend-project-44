@@ -4,4 +4,4 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9e04a25ec144c073d3b7/test_coverage)](https://codeclimate.com/github/tiltovskee/frontend-project-44/test_coverage)
 
 Brain-Even: https://asciinema.org/a/MQTD6nYECWdJ3UwwatimQEG5q
-
+Brain-Calc: https://asciinema.org/a/hT8pgt0K0pFgxbyAVfh6XaN1S
