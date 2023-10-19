@@ -27,7 +27,7 @@ const playGame = () => { // инициализация игры
   for (let i = 0; i < 3; i += 1) { // инициализация счетчика раундов
     const isCorrect = playRound();
     if (!isCorrect) { // проверка результата раунда
-      console.log(`Let's try again, ${name}`);
+      console.log(`Let's try again, ${name}!`);
       return;
     }
   }
