@@ -1,37 +1,29 @@
-import readlineSync from 'readline-sync';
-import getAnswerAndCheck from '../index.js';
+import { getAnswerAndCheck, playGame } from '../index.js';
+import getNumber from '../helpers.js';
 
-const getNumber = () => Math.ceil(Math.random() * 10);
-const getLengthOrIndex = (min, max) => Math.floor(Math.random() * (max - min) + min);
-
-const playRound = () => {
-  const startNum = getNumber();
-  const stepNum = getNumber();
-  const lengthOfProgression = getLengthOrIndex(5, 15);
-  const guessingNumIndex = getLengthOrIndex(0, lengthOfProgression);
+const getProgression = (startNum, stepOfProgression, lengthOfProgression) => {
   const progression = [startNum];
   for (let i = 0; i < lengthOfProgression - 1; i += 1) {
-    const arrayElem = progression[i] + stepNum;
+    const arrayElem = progression[i] + stepOfProgression;
     progression.push(arrayElem);
   }
+  return progression;
+};
+
+const playRound = () => {
+  const startNum = getNumber(1, 10);
+  const stepNum = getNumber(1, 10);
+  const lengthOfProgression = getNumber(5, 15);
+  const guessingNumIndex = getNumber(0, lengthOfProgression);
+  const progression = getProgression(startNum, stepNum, lengthOfProgression);
   const correctAnswer = `${progression[guessingNumIndex]}`;
   progression[guessingNumIndex] = '..';
   const progressionForQuestion = progression.join(' ');
   return getAnswerAndCheck(progressionForQuestion, correctAnswer);
 };
 
-const playGame = () => { // инициализация игры
-  console.log('Welcome to the Brain Games!');
-  const name = readlineSync.question('May I have your name? '); // запись имени игрока
-  console.log(`Hello, ${name}!\nWhat number is missing in the progression?`);
-  for (let i = 0; i < 3; i += 1) { // инициализация счетчика раундов
-    const isCorrect = playRound();
-    if (!isCorrect) { // проверка результата раунда
-      console.log(`Let's try again, ${name}!`);
-      return;
-    }
-  }
-  console.log(`Congratulations, ${name}!`);
-};
+const gameQuestion = 'What number is missing in the progression?';
 
-export default playGame;
+const playProgressionGame = () => playGame(playRound, gameQuestion);
+
+export default playProgressionGame;
