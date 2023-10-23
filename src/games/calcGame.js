@@ -1,47 +1,31 @@
-import readlineSync from 'readline-sync';
-import getAnswerAndCheck from '../index.js';
+import { getAnswerAndCheck, playGame } from '../index.js';
+import getNumber from '../helpers.js';
 
-const getNumber = () => Math.round(Math.random() * 100);
-const getOperator = () => {
-  const operatorsArr = ['+', '-', '*'];
-  return operatorsArr[Math.floor(Math.random() * 3)];
-};
-const playRound = () => { // инициализация одного раунда
-  const num1 = getNumber();
-  const num2 = getNumber();
-  const operator = getOperator();
-  let expressionToSolve = '';
-  let correctAnswer = '';
+const getCorrectAnswer = (num1, num2, operator) => {
   switch (operator) {
     case '+':
-      correctAnswer = `${num1 + num2}`;
-      expressionToSolve = `${num1} + ${num2}`;
-      break;
+      return `${num1 + num2}`;
     case '-':
-      correctAnswer = `${num1 - num2}`;
-      expressionToSolve = `${num1} - ${num2}`;
-      break;
+      return `${num1 - num2}`;
     case '*':
-      correctAnswer = `${num1 * num2}`;
-      expressionToSolve = `${num1} * ${num2}`;
-      break;
+      return `${num1 * num2}`;
     default:
+      throw new Error(`Ошибка! "${operator}"не является оператором выражения!`);
   }
+};
+
+const playRound = () => {
+  const firstNum = getNumber(1, 10);
+  const secondNum = getNumber(1, 10);
+  const listOfOperators = ['+', '-', '*'];
+  const operator = listOfOperators[Math.floor(Math.random() * 3)];
+  const expressionToSolve = `${firstNum} ${operator} ${secondNum}`;
+  const correctAnswer = getCorrectAnswer(firstNum, secondNum, operator);
   return getAnswerAndCheck(expressionToSolve, correctAnswer);
 };
 
-const playGame = () => { // инициализация игры
-  console.log('Welcome to the Brain Games!');
-  const name = readlineSync.question('May I have your name? '); // запись имени игрока
-  console.log(`Hello, ${name}!\nWhat is the result of the expression?`);
-  for (let i = 0; i < 3; i += 1) { // инициализация счетчика раундов
-    const isCorrect = playRound();
-    if (!isCorrect) { // проверка результата раунда
-      console.log(`Let's try again, ${name}!`);
-      return;
-    }
-  }
-  console.log(`Congratulations, ${name}!`);
-};
+const gameQuestion = 'What is the result of the expression?';
 
-export default playGame;
+const playCalcGame = () => playGame(playRound, gameQuestion);
+
+export default playCalcGame;
