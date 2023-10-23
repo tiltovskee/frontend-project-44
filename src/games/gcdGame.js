@@ -1,10 +1,9 @@
-import readlineSync from 'readline-sync';
-import getAnswerAndCheck from '../index.js';
+import { getAnswerAndCheck, playGame } from '../index.js';
+import getNumber from '../helpers.js';
 
-const getNumber = () => Math.ceil(Math.random() * 10);
-const playRound = () => { // инициализация одного раунда
-  const num1 = getNumber();
-  const num2 = getNumber();
+const playRound = () => {
+  const num1 = getNumber(1, 10);
+  const num2 = getNumber(1, 10);
   const numsForQuestion = `${num1} ${num2}`;
   let divisor = Math.min(num1, num2);
   let correctAnswer = '';
@@ -18,18 +17,8 @@ const playRound = () => { // инициализация одного раунд�
   return getAnswerAndCheck(numsForQuestion, correctAnswer);
 };
 
-const playGame = () => { // инициализация игры
-  console.log('Welcome to the Brain Games!');
-  const name = readlineSync.question('May I have your name? '); // запись имени игрока
-  console.log(`Hello, ${name}!\nFind the greatest common divisor of given numbers.`);
-  for (let i = 0; i < 3; i += 1) { // инициализация счетчика раундов
-    const isCorrect = playRound();
-    if (!isCorrect) { // проверка результата раунда
-      console.log(`Let's try again, ${name}!`);
-      return;
-    }
-  }
-  console.log(`Congratulations, ${name}!`);
-};
+const gameQuestion = 'Find the greatest common divisor of given numbers.';
 
-export default playGame;
+const playGcdGame = () => playGame(playRound, gameQuestion);
+
+export default playGcdGame;
