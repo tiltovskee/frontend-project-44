@@ -12,11 +12,13 @@ const playGame = (roundData, gameQuestion, numOfRounds = 3) => {
     if (answer.toLowerCase() === correctAnswer) {
       console.log('Correct!');
     } else {
-    console.log(`'${answer}' is wrong answer ;(. Correct answer was '${correctAnswer}'.`);
-    return false;
+      console.log(`'${answer}' is wrong answer ;(. Correct answer was '${correctAnswer}'.`);
+      console.log(`Let's try again, ${playerName}!`);
+      return false;
+    }
+    console.log(`Congratulations, ${playerName}!`);
   }
-  console.log(`Congratulations, ${playerName}!`);
-  }
+  return null;
 };
 
 export default playGame;
