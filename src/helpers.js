@@ -1,4 +1,4 @@
-const getNumber = (lowerLimit, upperLimit) => Math.floor(Math.random()
+const getRandomNumber = (lowerLimit, upperLimit) => Math.floor(Math.random()
  * (upperLimit - lowerLimit) + lowerLimit);
 
-export default getNumber;
+export default getRandomNumber;
