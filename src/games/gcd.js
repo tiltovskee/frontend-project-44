@@ -1,24 +1,29 @@
-import { getAnswerAndCheck, playGame } from '../index.js';
-import getNumber from '../helpers.js';
+import playGame from '../index.js';
+import getRandomNumber from '../helpers.js';
 
-const playRound = () => {
-  const num1 = getNumber(1, 10);
-  const num2 = getNumber(1, 10);
-  const numsForQuestion = `${num1} ${num2}`;
-  let divisor = Math.min(num1, num2);
-  let correctAnswer = '';
-  while (correctAnswer === '') {
-    if (num1 % divisor === 0 && num2 % divisor === 0) {
-      correctAnswer = `${divisor}`;
+const getGreatestCommonDivisor = (firstNumber, secondNumber) => {
+  let divisor = Math.min(firstNumber, secondNumber);
+  let greatestCommonDivisor = '';
+  while (greatestCommonDivisor === '') {
+    if (firstNumber % divisor === 0 && secondNumber % divisor === 0) {
+      greatestCommonDivisor = `${divisor}`;
     } else {
       divisor -= 1;
     }
   }
-  return getAnswerAndCheck(numsForQuestion, correctAnswer);
+  return greatestCommonDivisor;
+};
+
+const getNumbersAndAnswer = () => {
+  const firstNumber = getRandomNumber(1, 10);
+  const secondNumber = getRandomNumber(1, 10);
+  const numsForQuestion = `${firstNumber} ${secondNumber}`;
+  const answer = getGreatestCommonDivisor(firstNumber, secondNumber);
+  return [numsForQuestion, answer];
 };
 
 const gameQuestion = 'Find the greatest common divisor of given numbers.';
 
-const playGcdGame = () => playGame(playRound, gameQuestion);
+const playGcdGame = () => playGame(getNumbersAndAnswer, gameQuestion);
 
 export default playGcdGame;
