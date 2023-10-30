@@ -1,31 +1,31 @@
 import playGame from '../index.js';
 import getRandomNumber from '../helpers.js';
 
-const calculate = (firstNumber, secondNumber, operator) => {
+const calculate = (number1, number2, operator) => {
   switch (operator) {
     case '+':
-      return `${firstNumber + secondNumber}`;
+      return `${number1 + number2}`;
     case '-':
-      return `${firstNumber - secondNumber}`;
+      return `${number1 - number2}`;
     case '*':
-      return `${firstNumber * secondNumber}`;
+      return `${number1 * number2}`;
     default:
       throw new Error(`Ошибка! "${operator}"не является оператором выражения!`);
   }
 };
 
-const getExpressionAndAnswer = () => {
-  const firstNum = getRandomNumber(1, 10);
-  const secondNum = getRandomNumber(1, 10);
+const generateRound = () => {
+  const number1 = getRandomNumber(1, 10);
+  const number2 = getRandomNumber(1, 10);
   const operators = ['+', '-', '*'];
-  const operator = operators[Math.floor(Math.random() * operators.length)];
-  const expressionToSolve = `${firstNum} ${operator} ${secondNum}`;
-  const answer = calculate(firstNum, secondNum, operator);
-  return [expressionToSolve, answer];
+  const operator = operators[getRandomNumber(0, operators.length - 1)];
+  const question = `${number1} ${operator} ${number2}`;
+  const answer = calculate(number1, number2, operator);
+  return [question, answer];
 };
 
 const gameQuestion = 'What is the result of the expression?';
 
-const playCalcGame = () => playGame(getExpressionAndAnswer, gameQuestion);
+const playCalcGame = () => playGame(generateRound, gameQuestion);
 
 export default playCalcGame;
